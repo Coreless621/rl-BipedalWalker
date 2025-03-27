@@ -68,7 +68,7 @@ def main():
     moving_avg_window = 50 # used for logging average rewards (last 50 episodes) 
     min_sigma = 0.05
     initial_sigma = 0.3
-    sigma_decay = (min_sigma/initial_sigma)**(1/6250)
+    sigma_decay = (min_sigma/initial_sigma)**(1/6250) # decays sigma until 6250 episodes
     ou_noise = OrnsteinUhlenbeckNoise(size=(action_dim,), mu=0.0, theta=0.15, sigma=initial_sigma, dt=1e-2)
     gaussian_noise = Gaussian_noise((action_dim), std=initial_sigma)
     max_norm = 1.0 # a value used for gradient clipping
@@ -149,7 +149,7 @@ def main():
             avg_reward = np.mean(training_rewards)
             writer.add_scalar("Average Reward", avg_reward)
 
-        if len(critic_losses) > 0: # checking because losses only are generated if the buffer is full; see train()
+        if len(critic_losses) > 0: # checking because losses only are generated if the buffer has batch_size samples; see train()
             try:
                 avg_actor_loss = -np.mean(actor_losses[-moving_avg_window:])
                 avg_critic_loss = np.mean(critic_losses[-moving_avg_window:])
