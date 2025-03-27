@@ -8,6 +8,10 @@ It uses continuous control, actor-critic architecture, noise exploration, and ex
 ## 🌍 Environment Overview
 
 - **Environment:** `BipedalWalker-v3`
+
+https://github.com/user-attachments/assets/d086b078-fc48-40fc-a488-09c821ddd00f
+
+
 - **State space:** 24 continuous observations (robot position, joint angles, velocities, etc.)
 - **Action space:** 4 continuous values (control torques)
 - **Goal:** Train a bipedal robot to walk across terrain without falling
