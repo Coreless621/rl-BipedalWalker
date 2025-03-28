@@ -58,7 +58,7 @@ It uses continuous control, actor-critic architecture, noise exploration, and ex
 | `noise.py`    | Implements Ornstein-Uhlenbeck and Gaussian noise generators |
 | `training.py`    | Main DDPG training loop using vectorized environments and TensorBoard logging |
 | `testing.py`     | Loads a trained actor and evaluates performance in `human` mode |
-| `actor.pth`, `critic.pth`, etc. | Saved PyTorch weights for trained networks |
+| `actor.pth`, `critic.pth`, etc. | (auto generated) Saved PyTorch weights for trained networks |
 
 ---
 
