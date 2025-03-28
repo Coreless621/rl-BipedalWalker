@@ -2,7 +2,8 @@
 
 https://github.com/user-attachments/assets/d086b078-fc48-40fc-a488-09c821ddd00f
 
-This project implements a **Deep Deterministic Policy Gradient (DDPG)** agent to solve the `BipedalWalker-v3` environment from [Gymnasium](https://gymnasium.farama.org/).  
+This project implements a **Deep Deterministic Policy Gradient (DDPG)** agent to "solve" the `BipedalWalker-v3` environment from [Gymnasium](https://gymnasium.farama.org/).
+Achieving 300 points in 1600 timesteps consideres the environment to be solved.
 It uses continuous control, actor-critic architecture, noise exploration, and experience replay for learning.
 
 ---
