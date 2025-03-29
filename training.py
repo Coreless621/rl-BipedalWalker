@@ -142,24 +142,23 @@ def main():
             critic_losses.append(critic_loss)
             actor_losses.append(actor_loss)
 
-        try:
+        if len(training_rewards) >= moving_avg_window:
             avg_reward = np.mean(training_rewards[-moving_avg_window:]) 
             writer.add_scalar("Average Reward", avg_reward, global_step)
-        except RuntimeWarning: # if mean of empty slice
-            avg_reward = np.mean(training_rewards)
+        else:
+            avg_reward = np.mean(training_rewards) if training_rewards else 0.0
             writer.add_scalar("Average Reward", avg_reward)
 
-        if len(critic_losses) > 0: # checking because losses only are generated if the buffer has batch_size samples; see train()
-            try:
+        if len(critic_losses) >= moving_avg_window: # checking because losses only are generated if the buffer has batch_size samples; see train()
                 avg_actor_loss = -np.mean(actor_losses[-moving_avg_window:])
                 avg_critic_loss = np.mean(critic_losses[-moving_avg_window:])
                 writer.add_scalar("Average Actor Loss", avg_actor_loss, global_step) 
                 writer.add_scalar("Average Critic Loss", avg_critic_loss, global_step)
-            except RuntimeWarning:
-                avg_actor_loss = -np.mean(actor_losses)
-                avg_critic_loss = np.mean(critic_losses)
-                writer.add_scalar("Average Actor Loss", avg_actor_loss, global_step)
-                writer.add_scalar("Average Critic Loss", avg_critic_loss, global_step) 
+        else:
+            avg_actor_loss = -np.mean(actor_losses) if actor_losses else 0.0
+            avg_critic_loss = np.mean(critic_losses) if critic_losses else 0.0
+            writer.add_scalar("Average Actor Loss", avg_actor_loss, global_step)
+            writer.add_scalar("Average Critic Loss", avg_critic_loss, global_step)
 
 
         if (global_step) % 1000 == 0: # logging histograms every 10 episodes
