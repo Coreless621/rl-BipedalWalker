@@ -107,11 +107,11 @@ def main():
     episode_reward = np.zeros(num_envs) # logs accumulated reward for each env per episode
 
     while not done:
-        #ou_noise.reset()
+        #ou_noise.reset() # uncomment this if you use ou noise
 
         state_tensors = torch.tensor(states, dtype=torch.float32).to(device)
         actions = actor(state_tensors).detach().cpu().numpy()
-        noise = gaussian_noise()
+        noise = gaussian_noise() # replace with noise you want to use
         noisy_actions = actions + noise
         noisy_actions = np.clip(noisy_actions, -1, 1)
         
@@ -128,7 +128,7 @@ def main():
                 episode_reward[i]=0.0
                 pbar.update(episode_count - pbar.n)
     	
-        gaussian_noise.std = max(min_sigma, gaussian_noise.std * sigma_decay)
+        gaussian_noise.std = max(min_sigma, gaussian_noise.std * sigma_decay) # comment this if you use ou noise
         
         states = next_states
         if episode_count >= num_episodes: # handling training end 
